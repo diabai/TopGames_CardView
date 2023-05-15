@@ -1,56 +1,43 @@
 package com.yiriba.cardview.adapter;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.yiriba.cardview.model.Course;
+import com.yiriba.cardview.fragment.CallsFragment;
+import com.yiriba.cardview.fragment.ChatFragment;
+import com.yiriba.cardview.fragment.StatusFragment;
 
-public class MyPagerAdapter extends PagerAdapter  {
 
-    private Context context;
+public class MyPagerAdapter extends FragmentPagerAdapter {
 
-    public MyPagerAdapter(Context context) {
-        this.context = context;
+
+    private int numTabs;
+
+    public MyPagerAdapter(@NonNull FragmentManager fm, int numTabs) {
+        super(fm);
+        this.numTabs = numTabs;
     }
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Course course =  Course.values()[position];
-        LayoutInflater inflater = LayoutInflater.from(context);
-        ViewGroup layout = (ViewGroup) inflater.inflate(course.getmLayoutID(), container, false);
-        container.addView(layout);
-        return layout;
-    }
-
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        ((ViewPager) container).removeView((View) object);
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return new ChatFragment();
+            case 1:
+                return new StatusFragment();
+            case 2:
+                return new CallsFragment();
+        }
+        return null;
     }
 
     @Override
     public int getCount() {
-        return Course.values().length;
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
-    }
-
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        Course customPagerEnum = Course.values()[position];
-        return context.getString(customPagerEnum.getmTitleID());
+        return numTabs;
     }
 }
