@@ -24,6 +24,9 @@ public class MainActivity extends FragmentActivity {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
+        // Join the TabLayout with the ViewPager
+        tabLayout.setupWithViewPager(viewPager);
+
     }
 
 }

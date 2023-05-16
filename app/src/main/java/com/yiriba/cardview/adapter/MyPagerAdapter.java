@@ -1,5 +1,6 @@
 package com.yiriba.cardview.adapter;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -39,5 +40,22 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return numTabs;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        String title = null;
+        switch(position) {
+            case 0:
+                title = "Chats";
+                break;
+            case 1:
+                title = "Status";
+                break;
+            case 2:
+                title = "Calls";
+        }
+        return title;
     }
 }
